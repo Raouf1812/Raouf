@@ -8,7 +8,7 @@
 :root {
   /* الألوان الأساسية - محسنة للتباين */
   --bg-color: #0a0a0a;
-  --card-bg: #1a1a1a;
+  --card-bg: #ffffff0e;
   --text-color: #ffffff;
   --text-muted: #b0b0b0; /* تحسين التباين من #a0a0a0 إلى #b0b0b0 */
   --primary-color: #8b5cf6;
@@ -17,7 +17,7 @@
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --danger-color: #ef4444;
-  --border-color: #404040; /* تحسين التباين من #333333 إلى #404040 */
+  --border-color: #333333; /* تحسين التباين من #333333 إلى #404040 */
 
   /* الخطوط */
   --font-size: 16px;
@@ -169,7 +169,8 @@ body {
   padding: 1.5rem;
   text-align: center;
   transition: all var(--animation-speed);
-  animation: slideUp 0.6s ease-out;
+  animation: slideUp 0.3s ease-out;
+  
 }
 
 .stat-card:hover {
@@ -921,6 +922,6 @@ a {
 }
 
 a:hover {
-  color: #a855f7;
+  color: #c394eec2;
   text-decoration: underline;
 }
