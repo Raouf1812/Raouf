@@ -3,170 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة المهام الاحترافية | Professional Todo App</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>PLC Studio Pro - المحرر العبقري</title>
+    <style>
+        :root { --main: #2563eb; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; }
+        .wrapper { max-width: 1200px; margin: auto; }
+        header { text-align: center; padding: 10px; background: var(--main); border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        
+        .workspace { display: grid; grid-template-columns: 1fr 350px; gap: 15px; }
+        @media (max-width: 800px) { .workspace { grid-template-columns: 1fr; } }
+
+        .editor-box { background: var(--card); border-radius: 10px; padding: 20px; border: 2px solid #334155; min-height: 300px; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #334155; padding: 10px; border-radius: 8px; }
+        
+        .tool { background: #475569; border: none; color: white; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .tool:hover { background: var(--main); }
+        .tool.active { background: #10b981; }
+
+        .ladder-row { display: flex; align-items: center; background: #ffffff10; height: 80px; padding: 0 20px; border-left: 4px solid #94a3b8; border-right: 4px solid #94a3b8; margin-bottom: 10px; position: relative; }
+        .component { width: 60px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid transparent; cursor: pointer; }
+        .comp-label { font-size: 10px; position: absolute; top: 5px; color: #94a3b8; }
+        
+        .output-box { background: var(--card); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .code-block { background: #000; padding: 15px; border-radius: 8px; font-family: monospace; border-left: 4px solid var(--main); font-size: 14px; white-space: pre-wrap; }
+        h3 { margin: 0 0 5px 0; font-size: 16px; color: var(--main); text-transform: uppercase; }
+        .clear-btn { background: #ef4444; margin-right: auto; }
+    </style>
 </head>
 <body>
-    <!-- خلفية متحركة -->
-    <div class="background-animation">
-        <div class="floating-circle circle-1"></div>
-        <div class="floating-circle circle-2"></div>
-        <div class="floating-circle circle-3"></div>
-        <div class="floating-circle circle-4"></div>
-    </div>
 
-    <!-- الهيدر -->
-    <header class="header">
-        <div class="header-content">
-            <h1 class="header-title">
-                <i class="fas fa-tasks"></i>
-                Raouf
-            </h1>
-            <button class="settings-btn" id="settingsBtn">
-                <i class="fas fa-cog"></i>
-            </button>
-        </div>
+<div class="wrapper">
+    <header>
+        <h1>PLC Studio Pro ⚡</h1>
+        <p>ارسم الـ Ladder وشوف الـ STL و FBD فوراً</p>
     </header>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="main-content">
-        <div class="container">
-            <!-- إحصائيات المهام -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalTasks">0</div>
-                    <div class="stat-label">إجمالي المهام</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="activeTasks">0</div>
-                    <div class="stat-label">المهام النشطة</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="completedTasks">0</div>
-                    <div class="stat-label">المهام المكتملة</div>
-                </div>
-            </div>
+    <div class="toolbar">
+        <button class="tool" onclick="addComponent('NO')">➕ مفتاح (NO)</button>
+        <button class="tool" onclick="addComponent('NC')">➕ مفتاح (NC)</button>
+        <button class="tool" onclick="addComponent('COIL')">⭕ مخرج (Coil)</button>
+        <button class="tool clear-btn" onclick="clearAll()">مسح الكل 🗑️</button>
+    </div>
 
-            <!-- إضافة مهمة جديدة -->
-            <div class="add-task-container">
-                <div class="add-task-form">
-                    <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." class="task-input">
-                    <select id="prioritySelect" class="priority-select">
-                        <option value="low">أولوية منخفضة</option>
-                        <option value="medium">أولوية متوسطة</option>
-                        <option value="high">أولوية عالية</option>
-                    </select>
-                    <button id="addTaskBtn" class="add-task-btn">
-                        <i class="fas fa-plus"></i>
-                        إضافة
-                    </button>
-                </div>
-            </div>
-
-            <!-- فلاتر المهام -->
-            <div class="filters-container">
-                <button class="filter-btn active" data-filter="all">جميع المهام</button>
-                <button class="filter-btn" data-filter="active">النشطة</button>
-                <button class="filter-btn" data-filter="completed">المكتملة</button>
-            </div>
-
-            <!-- قائمة المهام -->
-            <div class="tasks-container" id="tasksContainer">
-                <!-- المهام ستظهر هنا -->
-            </div>
+    <div class="workspace">
+        <div class="editor-box" id="drawingArea">
+            <div class="ladder-row" id="mainRow"></div>
         </div>
-    </main>
 
-    <!-- زر الإعدادات العائم -->
-    <button class="floating-settings-btn" id="floatingSettingsBtn">
-        <i class="fas fa-palette"></i>
-    </button>
-
-    <!-- لوحة التخصيص -->
-    <div class="customization-panel" id="customizationPanel">
-        <div class="panel-header">
-            <h3>تخصيص التطبيق</h3>
-            <button class="close-panel-btn" id="closePanelBtn">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="panel-content">
-            <!-- الثيمات المحددة -->
-            <div class="setting-group">
-                <h4>الثيمات المحددة</h4>
-                <div class="theme-options">
-                    <button class="theme-btn active" data-theme="dark">
-                        <div class="theme-preview dark-theme"></div>
-                        داكن
-                    </button>
-                    <button class="theme-btn" data-theme="purple">
-                        <div class="theme-preview purple-theme"></div>
-                        بنفسجي
-                    </button>
-                    <button class="theme-btn" data-theme="blue">
-                        <div class="theme-preview blue-theme"></div>
-                        أزرق
-                    </button>
-                </div>
+        <div class="output-box">
+            <div>
+                <h3>Statement List (STL)</h3>
+                <div class="code-block" id="stlCode">// ابدأ الإضافة</div>
             </div>
-
-            <!-- تخصيص الألوان -->
-            <div class="setting-group">
-                <h4>تخصيص الألوان</h4>
-                <div class="color-inputs">
-                    <div class="color-input-group">
-                        <label>لون الخلفية</label>
-                        <input type="color" id="bgColorPicker" value="#0a0a0a">
-                    </div>
-                    <div class="color-input-group">
-                        <label>اللون الأساسي</label>
-                        <input type="color" id="primaryColorPicker" value="#8b5cf6">
-                    </div>
-                </div>
-            </div>
-
-            <!-- حجم الخط -->
-            <div class="setting-group">
-                <h4>حجم الخط</h4>
-                <div class="slider-container">
-                    <input type="range" id="fontSizeSlider" min="12" max="20" value="16" class="slider">
-                    <span id="fontSizeValue">16px</span>
-                </div>
-            </div>
-
-            <!-- صورة الخلفية -->
-            <div class="setting-group">
-                <h4>صورة الخلفية</h4>
-                <input type="file" id="backgroundImageInput" accept="image/*" class="file-input">
-                <button id="removeBackgroundBtn" class="remove-bg-btn">إزالة الصورة</button>
-            </div>
-
-            <!-- الأنيميشن -->
-            <div class="setting-group">
-                <h4>الحركات والتأثيرات</h4>
-                <label class="switch">
-                    <input type="checkbox" id="animationToggle" checked>
-                    <span class="switch-slider"></span>
-                    تفعيل الحركات
-                </label>
-            </div>
-
-            <!-- إعادة تعيين -->
-            <div class="setting-group">
-                <button id="resetSettingsBtn" class="reset-btn">
-                    <i class="fas fa-undo"></i>
-                    إعادة تعيين الإعدادات
-                </button>
+            <div>
+                <h3>Function Block (FBD)</h3>
+                <div class="code-block" id="fbdCode">// ابدأ الإضافة</div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- الخلفية المظلمة للوحة -->
-    <div class="panel-overlay" id="panelOverlay"></div>
+<script>
+    let components = [];
 
-    <script src="script.js"></script>
+    function addComponent(type) {
+        if (type === 'COIL' && components.some(c => c.type === 'COIL')) return; // مخرج واحد للسطر
+        
+        const id = components.length;
+        const name = type === 'COIL' ? `Q0.0` : `I0.${id}`;
+        components.push({ type, name });
+        render();
+    }
+
+    function clearAll() {
+        components = [];
+        render();
+    }
+
+    function render() {
+        const row = document.getElementById('mainRow');
+        const stlBox = document.getElementById('stlCode');
+        const fbdBox = document.getElementById('fbdCode');
+        
+        row.innerHTML = '';
+        let stlText = "";
+        let fbdText = "";
+
+        components.forEach((comp, index) => {
+            // Draw LAD
+            const div = document.createElement('div');
+            div.className = 'component';
+            let icon = comp.type === 'NO' ? '--[ ]--' : (comp.type === 'NC' ? '--[/]--' : '--( )--');
+            div.innerHTML = `<span class="comp-label">${comp.name}</span> ${icon}`;
+            row.appendChild(div);
+
+            // Generate STL
+            if (comp.type === 'NO') stlText += `A  ${comp.name}\n`;
+            if (comp.type === 'NC') stlText += `AN ${comp.name}\n`;
+            if (comp.type === 'COIL') stlText += `=  ${comp.name}\n`;
+        });
+
+        // Generate FBD Logic
+        let inputs = components.filter(c => c.type !== 'COIL');
+        let hasCoil = components.find(c => c.type === 'COIL');
+        if (inputs.length > 0) {
+            fbdText = inputs.map(i => i.name + (i.type === 'NC' ? ' (Inv)' : '')).join('\n   | \n');
+            fbdText += `\n-------[&]-------> ${hasCoil ? hasCoil.name : '???'}`;
+        }
+
+        stlBox.innerText = stlText || "// ابدأ الإضافة";
+        fbdBox.innerText = fbdText || "// ابدأ الإضافة";
+    }
+</script>
+
 </body>
 </html>
