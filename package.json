@@ -1,0 +1,20 @@
+{
+  "name": "ios-dark-personal-links",
+  "version": "1.0.0",
+  "description": "Mobile-first, responsive personal links web page inspired by iOS glassmorphism and modern dark mode aesthetic",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "linktree",
+    "direct-me",
+    "ios",
+    "glassmorphism",
+    "dark-mode",
+    "personal-hub",
+    "tailwind"
+  ],
+  "author": "Alex Rivers",
+  "license": "MIT"
+}

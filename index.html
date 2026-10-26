@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Raouf Raafat</title>  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            ios: {
+              bg: '#080c14',
+              surface: 'rgba(18, 24, 38, 0.72)',
+              surfaceElevated: 'rgba(26, 35, 54, 0.85)',
+              blue: '#007AFF',
+              cyan: '#00d2ff',
+              green: '#34C759',
+              red: '#FF3B30',
+              orange: '#FF9F0A',
+              purple: '#AF52DE',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderHighlight: 'rgba(255, 255, 255, 0.18)'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#080c14] text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- Interactive Falling Snow Orbs Canvas -->
+  <canvas id="snow-canvas"></canvas>
+
+  <!-- Ambient glowing depth gradients -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-3"></div>
+
+  <!-- Main Responsive Container (Mobile-first, max-width: 480px) -->
+  <main class="relative z-10 mx-auto min-h-screen max-w-[480px] px-4 py-8 sm:py-12 flex flex-col justify-between">
+
+    <!-- Profile Card Section -->
+    <section class="glass-panel rounded-[30px] p-6 sm:p-7 text-center relative overflow-hidden mb-6">
+      <!-- Top subtle highlight reflection -->
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
+
+      <!-- Avatar with rotating glowing halo ring -->
+      <div class="relative mx-auto w-24 h-24 mb-4">
+        <div class="avatar-halo w-full h-full">
+          <img 
+            src="assets/img.jpg" 
+            alt="Raouf Raafat"
+            class="relative z-10 w-full h-full object-cover rounded-full border-2 border-white/60 shadow-2xl"
+          />
+        </div>
+        <!-- Active status dot -->
+        <span class="absolute bottom-1 right-1 z-20 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#0e1422] shadow-md pulse-beacon"></span>
+      </div>
+
+      <!-- Name -->
+      <h1 class="text-2xl font-bold tracking-tight text-white mb-1.5 flex items-center justify-center gap-1.5">
+        <span>Raouf Raafat</span>
+      </h1>
+      <!-- Bio / Tagline -->
+      <p class="text-sm text-slate-300 leading-relaxed max-w-sm mx-auto mb-4">
+           ❤️ منور يا غالي، اتفضل خذ لفة في كل أكونتاتي هنا براحتك</p>  
+      <!-- Quick Social Icons Row -->
+      <div class="flex items-center justify-center gap-3 pt-4 border-t border-white/10 mb-3">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/raouf__raafet/" target="_blank" rel="noopener noreferrer" 
+          class="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-pink-500 hover:bg-pink-500/10 hover:border-pink-500/30 transition-all duration-200" title="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+          </svg>
+        </a>
+
+        <!-- Telegram -->
+        <a href="https://t.me/Raouf_18" target="_blank" rel="noopener noreferrer" 
+          class="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-blue-400 hover:bg-blue-400/10 hover:border-blue-400/30 transition-all duration-200" title="Telegram">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m22 2-7 20-4-9-9-4Z"/>
+            <path d="M22 2 11 13"/>
+          </svg>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:roofraafet@gmail.com" 
+          class="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-emerald-400 hover:bg-emerald-400/10 hover:border-emerald-400/30 transition-all duration-200" title="Email Me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </a>
+
+        <!-- Call Me -->
+        <a href="tel:+201224630935" 
+          class="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-emerald-400 hover:bg-emerald-400/10 hover:border-emerald-400/30 transition-all duration-200" title="Call Me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+      <!-- Instagram Portfolio Card -->
+      <a href="https://www.instagram.com/raouf__raafet/" target="_blank" rel="noopener noreferrer" class="link-item-card glass-card rounded-[22px] p-3.5 flex items-center justify-between group">
+        <div class="flex items-center space-x-3.5 min-w-0">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white shadow-md shadow-rose-500/25 flex-shrink-0 group-hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+            </svg>          </div>
+          <div class="min-w-0">
+            <h4 class="link-title text-sm font-semibold text-white tracking-tight">Instagram</h4>
+            <p class="link-desc text-xs text-slate-400 truncate mt-0.5">تابعني على انستجرام</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 pl-2">
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1.5 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- YouTube Channel Card -->
+      <a href="https://www.youtube.com/@raoufraafet" target="_blank" rel="noopener noreferrer" class="link-item-card glass-card rounded-[22px] p-3.5 flex items-center justify-between group">
+        <div class="flex items-center space-x-3.5 min-w-0">
+          <div class="w-11 h-11 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-md shadow-red-600/35 flex-shrink-0 group-hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+              <path d="m10 15 5-3-5-3z"/>
+            </svg>          </div>
+          <div class="min-w-0">
+            <h4 class="link-title text-sm font-semibold text-white tracking-tight">YouTube </h4>
+            <p class="link-desc text-xs text-slate-400 truncate mt-0.5">قناتي على اليوتيوب</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 pl-2">
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1.5 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Telegram Channel Card -->
+      <a href="https://t.me/Raouf_18" target="_blank" rel="noopener noreferrer" class="link-item-card glass-card rounded-[22px] p-3.5 flex items-center justify-between group">
+        <div class="flex items-center space-x-3.5 min-w-0">
+          <div class="w-11 h-11 rounded-2xl bg-[#2AABEE] flex items-center justify-center text-white shadow-md shadow-cyan-500/30 flex-shrink-0 group-hover:scale-105 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-[-2px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 2-7 20-4-9-9-4Z"/>
+              <path d="M22 2 11 13"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h4 class="link-title text-sm font-semibold text-white tracking-tight">Telegram</h4>
+            <p class="link-desc text-xs text-slate-400 truncate mt-0.5">تواصل معي مباشرة عبر حسابي على تيليجرام</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 pl-2">
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1.5 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Email Card -->
+      <a href="mailto:roofraafet@gmail.com" class="link-item-card glass-card rounded-[22px] p-3.5 flex items-center justify-between group">
+        <div class="flex items-center space-x-3.5 min-w-0">
+          <div class="w-11 h-11 rounded-2xl bg-red-500 flex items-center justify-center text-white shadow-md shadow-red-500/30 flex-shrink-0 group-hover:scale-105 transition-transform">
+            <!-- Gmail / Mail SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center space-x-2">
+              <h4 class="link-title text-sm font-semibold text-white tracking-tight truncate">Gmail</h4>
+            </div>
+            <p class="link-desc text-xs text-slate-400 truncate mt-0.5">roofraafet@gmail.com</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 pl-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1.5 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Call Me Card -->
+      <a href="tel:+201224630935" class="link-item-card glass-card rounded-[22px] p-3.5 flex items-center justify-between group">
+        <div class="flex items-center space-x-3.5 min-w-0">
+          <!-- Icon squircle with glowing gradient -->
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-green-500 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/30 flex-shrink-0 group-hover:scale-105 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center space-x-2">
+              <h4 class="link-title text-sm font-semibold text-white tracking-tight truncate">اتصل بي مباشرة</h4>
+            </div>
+            <p class="link-desc text-xs text-slate-400 truncate mt-0.5">اضغط للحصول علي رقمي الشخصي</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 pl-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1.5 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+    <!-- Links List Cards Section -->
+    <section id="links-container" class="space-y-3 mb-8">
+      
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-white/5 space-y-2">
+      <p class="text-[14px] text-slate-500 font-mono">
+      made by : Raouf </p>
+    </footer>
+  </main>
+  <!-- Toast Notification placeholder -->
+  <div id="toast-container">
+    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+    <span>Copied profile link!</span>
+  </div>
+  <!-- Scripts -->
+  <script src="js/snow.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
