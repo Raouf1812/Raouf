@@ -1,0 +1,310 @@
+/* iOS Dark Glassmorphism Styling & Design System with Falling Snow Orbs */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-primary: #080c14;
+  --bg-surface: rgba(18, 24, 38, 0.72);
+  --bg-surface-elevated: rgba(26, 35, 54, 0.85);
+  --bg-card: rgba(20, 27, 42, 0.65);
+  --bg-card-hover: rgba(30, 41, 64, 0.82);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(255, 255, 255, 0.18);
+  --accent-blue: #007AFF;
+  --accent-blue-glow: rgba(0, 122, 255, 0.35);
+  --accent-cyan: #00d2ff;
+  --accent-green: #34C759;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+}
+
+/* Base resets & typography */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  letter-spacing: -0.014em;
+}
+
+/* Snow Canvas */
+#snow-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient luminous depth glows */
+.ambient-glow-1 {
+  position: fixed;
+  top: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 122, 255, 0.14) 0%, rgba(0, 210, 255, 0.05) 45%, rgba(8, 12, 20, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+  animation: floatAmbient1 16s ease-in-out infinite alternate;
+}
+
+.ambient-glow-2 {
+  position: fixed;
+  bottom: 0%;
+  right: -15%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.10) 0%, rgba(8, 12, 20, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+  animation: floatAmbient2 20s ease-in-out infinite alternate;
+}
+
+.ambient-glow-3 {
+  position: fixed;
+  top: 35%;
+  left: -20%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(8, 12, 20, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(55px);
+}
+
+@keyframes floatAmbient1 {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-48%) translateY(30px); }
+}
+
+@keyframes floatAmbient2 {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-35px); }
+}
+
+/* Glassmorphism Containers */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border-highlight);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    0 8px 16px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  position: relative;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.45),
+    0 0 1px 1px rgba(255, 255, 255, 0.02);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Subtle glass light shimmer on hover */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.06) 50%, 
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover::before {
+  left: 140%;
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(0, 180, 255, 0.3);
+  border-top-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2.5px) scale(1.008);
+  box-shadow: 
+    0 20px 38px -10px rgba(0, 0, 0, 0.65),
+    0 0 20px -3px rgba(0, 122, 255, 0.25);
+}
+
+.glass-card:active {
+  transform: scale(0.985) translateY(0);
+  transition-duration: 0.1s;
+}
+
+/* Avatar glowing animated halo ring */
+.avatar-halo {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-halo::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #007AFF, #00f2fe, #7928ca, #007AFF);
+  opacity: 0.75;
+  filter: blur(8px);
+  animation: rotateHalo 10s linear infinite;
+  z-index: 0;
+}
+
+.avatar-halo::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 100%);
+  z-index: 1;
+}
+
+@keyframes rotateHalo {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulsing online beacon */
+.pulse-beacon {
+  position: relative;
+}
+.pulse-beacon::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  opacity: 0.45;
+  animation: pulseBeacon 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes pulseBeacon {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  70% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Quick social icon circle/squircle */
+.social-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+.social-pill-btn:active {
+  transform: scale(0.92);
+}
+
+/* Toast notification */
+#toast-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  background: rgba(20, 28, 44, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 122, 255, 0.25);
+  border-radius: 9999px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #FFFFFF;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+#toast-container.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.social-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  border-radius: 9999px; /* دائرية بالكامل */
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+  transition: all 0.2s ease-in-out;
+}
+
+.social-pill-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px); /* رفعة خفيفة عند الـ hover */
+}
